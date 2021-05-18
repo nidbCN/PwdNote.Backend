@@ -10,18 +10,31 @@ namespace PwdNote.Backend.Services
 {
     public class PasswordService : IPasswordService
     {
+        /// <summary>
+        /// Database context.
+        /// </summary>
         private readonly ProjDbContext _context;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="context">Injected database context.</param>
         public PasswordService(ProjDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void AddPassword(PasswordEntity passwordItem)
+        /// <summary>
+        /// Add a password
+        /// </summary>
+        /// <param name="passwordItem"></param>
+        public PasswordEntity AddPassword(PasswordEntity passwordItem)
         {
             if (passwordItem == null) throw new ArgumentNullException(nameof(passwordItem));
 
             _context.Passwords.Add(passwordItem);
+
+            return passwordItem;
         }
 
         public async Task<IList<PasswordEntity>> GetPasswordList(int limit, int offset) =>
@@ -56,6 +69,8 @@ namespace PwdNote.Backend.Services
             {
                 AddPassword(newPasswordItem);
             }
+
+            originalPasswordItem = newPasswordItem;
 
             _context.Update(originalPasswordItem);
             

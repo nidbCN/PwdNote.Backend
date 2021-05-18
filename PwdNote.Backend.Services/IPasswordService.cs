@@ -10,11 +10,11 @@ namespace PwdNote.Backend.Services
 
         public Task<IList<PasswordEntity>> GetPasswordList(int limit, int offset, string keyword);
 
-        public void AddPassword(PasswordEntity passwordItem);
+        public PasswordEntity AddPassword(PasswordEntity passwordItem);
 
         public PasswordEntity UpdatePassword(int originalId, PasswordEntity newPasswordItem);
 
-        public void RemovePassword(int id);
+        public bool RemovePassword(int id);
 
     }
 }
